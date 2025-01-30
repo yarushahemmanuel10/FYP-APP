@@ -1,8 +1,8 @@
 import { View, Text } from 'react-native'
 import React, { useEffect } from 'react'
-import { Slot, useSegments } from "expo-router";
+import { Slot, useSegments, useRouter } from "expo-router";
 import "../global.css";
-import { AuthContext, useAuth } from '../context/authContext';
+import { AuthContextProvider, useAuth } from '../context/authContext';
 
 const MainLayout = ()=>{
   const {isAuthenticated} = useAuth();
@@ -23,17 +23,16 @@ const MainLayout = ()=>{
     }
 
   }, [isAuthenticated])
-
-
-return <Slot/>
+    
+  return <Slot/>
 }
 
 export default function Rootlayout() {
   return (
-    <AuthContext.Provider>
+    <AuthContextProvider>
       <MainLayout/>
 
-    </AuthContext.Provider>
+    </AuthContextProvider>
       
     
   )
