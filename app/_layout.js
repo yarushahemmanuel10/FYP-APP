@@ -14,15 +14,15 @@ const MainLayout = ()=>{
     //check if user is authenticated or not
     if(typeof isAuthenticated=='undefined') return;
     const inApp= segments[0]=='(app)';
-    if(isAuthenticated && !inApp){
-      //redirect to home
+    // if(isAuthenticated && !inApp){
+    //   //redirect to home
       router.replace('/home');
-    } else if(isAuthenticated==false){
-      // redirect to signIn
-      router.replace('/signIn');
-    }
+    // } else if(isAuthenticated==false){
+    //   router.replace('/signIn');
+    // }
 
-  }, [isAuthenticated])
+  })
+  //[isAuthenticated])
     
   return <Slot/>
 }
