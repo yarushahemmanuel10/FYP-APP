@@ -1,40 +1,34 @@
-import { View, Text } from 'react-native'
-import React, { useEffect } from 'react'
+import { useEffect } from "react";
 import { Slot, useSegments, useRouter } from "expo-router";
 import "../global.css";
-import { AuthContextProvider, useAuth } from '../context/authContext';
+import { AuthContextProvider, useAuth } from "../context/authContext";
 
-const MainLayout = ()=>{
-  const {isAuthenticated} = useAuth();
+const MainLayout = () => {
+  const { isAuthenticated } = useAuth();
   const segments = useSegments();
-  const router= useRouter();
+  const router = useRouter();
 
-  useEffect(()=>{
+  useEffect(() => {
+    if (typeof isAuthenticated === "undefined") return;
 
-    //check if user is authenticated or not
-    if(typeof isAuthenticated=='undefined') return;
-    const inApp= segments[0]=='(app)';
-    if(isAuthenticated && !inApp){
-      //redirect to home
-      router.replace('/home');
-    } else if(isAuthenticated==false){
-      // redirect to signIn
-      router.replace('/signIn');
+    const inApp = segments[0] === "(app)";
+
+    if (isAuthenticated && !inApp) {
+      // Redirect to home only if the user is authenticated and NOT already inside (app)
+      router.replace("/home");
+    } else if (isAuthenticated === false) {
+      // Redirect to sign-in page if not authenticated
+      router.replace("/signIn");
     }
+  }, [isAuthenticated]);
 
-  }, [isAuthenticated])
-    
-  return <Slot/>
-}
+  return <Slot />;
+};
 
-export default function Rootlayout() {
+export default function RootLayout() {
   return (
     <AuthContextProvider>
-      <MainLayout/>
-
+      <MainLayout />
     </AuthContextProvider>
-      
-    
-  )
+  );
 }
-
