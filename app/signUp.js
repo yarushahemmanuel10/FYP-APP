@@ -1,9 +1,12 @@
-import { View, Text, Image, TextInput, TouchableOpacity, Pressable, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Pressable, Alert } from 'react-native';
 import React, { useRef } from 'react';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { StatusBar } from 'expo-status-bar';
 import { Octicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import { auth } from '../firebase';
+import { createUserWithEmailAndPassword } from "firebase/auth";
+
 
 export default function SignUp() {
   const router = useRouter();
@@ -28,13 +31,16 @@ export default function SignUp() {
     }
   
     try {
-      // Perform signup process (e.g., API request)
-      // Example: await signUpWithEmail(emailRef.current, passwordRef.current);
-  
-      // If signup is successful, navigate to sign-in page
+      // Use the modular function correctly
+      const userCredential = await createUserWithEmailAndPassword(auth, emailRef.current, passwordRef.current);
+      
+      console.log("User created successfully:", userCredential.user.email);
       Alert.alert("Success", "Account created successfully!");
+  
+      // Redirect to sign-in page
       router.push('/signIn');
     } catch (error) {
+      console.error("Sign Up Failed:", error.message);
       Alert.alert("Sign Up Failed", error.message);
     }
   };

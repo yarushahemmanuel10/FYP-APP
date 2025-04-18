@@ -1,13 +1,12 @@
-import { View, Text } from 'react-native'
-import React, { useEffect } from 'react'
+import { useEffect } from "react";
 import { Slot, useSegments, useRouter } from "expo-router";
 import "../global.css";
-import { AuthContextProvider, useAuth } from '../context/authContext';
+import { AuthContextProvider, useAuth } from "../context/authContext";
 
-const MainLayout = ()=>{
-  const {isAuthenticated} = useAuth();
+const MainLayout = () => {
+  const { isAuthenticated } = useAuth();
   const segments = useSegments();
-  const router= useRouter();
+  const router = useRouter();
 
   useEffect(()=>{
 
@@ -27,14 +26,10 @@ const MainLayout = ()=>{
   return <Slot/>
 }
 
-export default function Rootlayout() {
+export default function RootLayout() {
   return (
     <AuthContextProvider>
-      <MainLayout/>
-
+      <MainLayout />
     </AuthContextProvider>
-      
-    
-  )
+  );
 }
-
