@@ -11,40 +11,9 @@ const HomeScreen = () => {
   const [badPostureCount, setBadPostureCount] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
   const router = useRouter();
-  useEffect(() => {
-    fetchPostureData();
-  }, []);
+  
 
-  const fetchPostureData = async () => {
-    try {
-      const oneWeekAgo = new Date();
-      oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-
-      const q = query(
-        collection(db, "posturePredictions"),
-        where("timestamp", ">", oneWeekAgo)
-      );
-      const querySnapshot = await getDocs(q);
-
-      let fetchedData = [];
-      let badCount = 0;
-
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        fetchedData.push(data);
-
-        if (data.prediction === "bad") {
-          badCount++;
-        }
-      });
-
-      setPostureData(fetchedData);
-      setBadPostureCount(badCount);
-    } catch (error) {
-      console.error("Error fetching posture data:", error);
-    }
-  };
-
+ 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Past Week Posture Stats</Text>
