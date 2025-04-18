@@ -90,4 +90,7 @@ export default function SignIn() {
       </View>
     </View>
   );
+    </View>
+  );
 }
+
